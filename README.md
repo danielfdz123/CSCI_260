@@ -8,8 +8,10 @@ ________________________________________________________________________________
 Homework Overview:
 
 (hw2a.asm) MIPS code that implements:  m = 2 − (7 ∗ (9 ∗ n + 3));
+
 (hw2b.asm) MIPS code that implements: C[1] = C[0]; 
                                       C[0] = m − 5;
+                                      
 (hw2c.asm) MIPS code that implements: D[m ∗ 3 + C[2]] = (∗k) − C[1];
     
 (hw3.asm) TBD
