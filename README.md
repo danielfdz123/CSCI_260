@@ -7,14 +7,14 @@ Majority of these coding labs are using MIPS, and a few C++ every now and then. 
 ____________________________________________________________________________________________________________________________________________________________
 Homework Overview:
 
-    (hw2a.asm) MIPS code that implements: 
-        m = 2 − (7 ∗ (9 ∗ n + 3));
-    (hw2b.asm) MIPS code that implements:
-        C[1] = C[0];
-        C[0] = m − 5;
-    (hw2c.asm) MIPS code that implements:
-        D[m ∗ 3 + C[2]] = (∗k) − C[1];
+(hw2a.asm) MIPS code that implements: 
+    m = 2 − (7 ∗ (9 ∗ n + 3));
+(hw2b.asm) MIPS code that implements:
+    C[1] = C[0];
+    C[0] = m − 5;
+(hw2c.asm) MIPS code that implements:
+    D[m ∗ 3 + C[2]] = (∗k) − C[1];
     
-    (hw3.asm) TBD
+(hw3.asm) TBD
 
-    (hw4.asm) Implements a SUM OF SQUARES function and a MULTIPLY function that takes in two positive integers, passed in through registers $a0 and $a1, and returns their product in $v0. Will also have the equivalent C++ code as comments
+(hw4.asm) Implements a SUM OF SQUARES function and a MULTIPLY function that takes in two positive integers, passed in through registers $a0 and $a1, and returns their product in $v0. Will also have the equivalent C++ code as comments
