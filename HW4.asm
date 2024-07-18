@@ -1,29 +1,67 @@
-MAIN:
-#test values
-    li $s0, 2   
-    li $s1, 4
-     
-#s0 and s1 are both positive numbers (can be any)
-    add $a0, $s0, $zero    #store s0 in a0 (parameter A)
-    add $a1, $s1, $zero    #store s1 in a1 (parameter B)
-    jal MULTIPLY 
-    j END  
+# THIS IS HW4.CPP BUT IN ASSEMBLY 
+
+SUM_OF_SQUARES:
+#Allocate stack space for 4 words
+    addi $sp, $sp, -16
+    sw $ra, 12($sp)          #Save return address
+    sw $s0, 8($sp)           #Push onto stack
+    sw $s1, 4($sp)           
+    sw $s2, 0($sp)           
+
+    add $s0, $zero, $a0      #s0 = n (n is our test value)
+    add $s1, $zero, $zero    #s1 = 0 (sum of squares)
+    add $s2, $zero, $zero    #s2 = 0 (loop counter)
+
+SosLOOP:
+    addi $t0, $s2, 1         	  #t0 = s2 + 1
+    slt $t1, $s0, $t0        	  #s0 < t0
+    bne $t1, $zero, sosEndLoop    #if slt != 0, exit the loop
+
+    add $a0, $t0, $zero      # a0 = t0
+    add $a1, $t0, $zero      # a1 = t0
+    jal MULTIPLY             # call MULTIPLY(t0, t0)
+    add $s1, $s1, $v0        # add the products from MULTIPLY
+    addi $s2, $s2, 1         # s2++
+    j SosLOOP                #Repeat sosLOOP
+
+sosEndLoop:
+    add $v0, $s1, $zero      #v0 <- sum of squares
+
+    lw $s2, 0($sp)           #Pop from stack
+    lw $s1, 4($sp)           
+    lw $s0, 8($sp)          
+    lw $ra, 12($sp)          #reobtain return address
+    addi $sp, $sp, 16        #Deallocate stack space
+    jr $ra                   #return to MAIN
 
 MULTIPLY:
-    add $t0, $a0, $zero     #t0 <- integer A (2)
-    add $t1, $a1, $zero     #t1 <- integer b (4)
-    add $t2, $zero, $zero   #t2 <- RESULT
-    add $t3, $zero, $zero   #t3 <- 0 (for loop value)
+#Allocates the stack ofr 4 words
+    addi $sp, $sp, -16       
+    sw $ra, 12($sp)          #Save return address
+    sw $s0, 8($sp)           #Push onto stack
+    sw $s1, 4($sp)           
+    sw $s2, 0($sp)           
+
+    add $s0, $zero, $a0      # s0 <- 0 (number A)
+    add $s1, $zero, $a1      # s1 <- 0 (number B
+    add $s2, $zero, $zero    # s2 <- 0 (product)
+    add $s3, $zero, $zero    # s3 = 0 (counter)
     
-FOR:
-    slt $t4, $t3, $t1         #t3 < t1 == (0 < 4)
-    bne $t4, $zero, FORcont   #if slt != 0, continue with for loop
-    add $v0, $t2, $zero       #store result in result variable
-    jr $ra                    #EXIT for loop
+mFOR:
+    beq $s3, $s1, mEndLoop	  	#once s3 = product number B, EXIT FOR LOOP
+    add $s2, $s2, $s0        		#s2 = s2 + s0 add values and store it in s2
+    addi $s3, $s3, 1         		#increment counter (s3++)
+    j mFOR               		#Repeat loop
 
-FORcont:
-    add $t2, $t2, $t0         # result = result + sum (t2 <- 0 + 2)    
-    addi $t3, $t3, 1          #increment i 
-    j FOR
+mEndLoop:
+    add $v0, $s2, $zero      #v0 <- product
 
+    lw $s2, 0($sp)           #Pop from the staxk
+    lw $s1, 4($sp)          
+    lw $s0, 8($sp)           
+    lw $ra, 12($sp)          #reobtain return adress
+    addi $sp, $sp, 16        #Deallocate stack space
+    jr $ra                   #return to sosLoop
+ 
 END:
+#rest of code
